@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "ecmaFeatures": {
+    "jsx": true,
+    "modules": true
+  },
+  "plugins": ["react"],
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+  "rules": {
+    "indent": ["error", 2],
+    "strict": ["error", "never"],
+    "jsx-quotes": ["error", "prefer-double"],
+    "quotes": ["error", "single"],
+    "quote-props": ["error", "consistent-as-needed"],
+    "semi": ["error", "always"],
+    "no-console": "off"
+  }
+}
