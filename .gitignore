@@ -4,3 +4,7 @@ npm-debug.log
 
 # OS-specific files
 .DS_Store
+
+# App
+dist/
+config.local.json

@@ -19,7 +19,7 @@ const VENDOR_LIBS = [
   'react-redux',
   'react-router-dom',
   'redux',
-  'redux-thunk'
+  'redux-saga'
 ];
 
 const config = {
@@ -45,7 +45,10 @@ const config = {
           loader: 'babel-loader',
           options: {
             cacheDirectory: true,
-            plugins: [require('babel-plugin-transform-class-properties')],
+            plugins: [
+              require('babel-plugin-transform-class-properties'),
+              require('babel-plugin-transform-object-rest-spread')
+            ],
             presets: [
               'babel-preset-react',
               ['babel-preset-env', {
@@ -56,8 +59,24 @@ const config = {
         }
       },
       {
+        test: /\.css$/i,
+        include: /bootstrap\.css/,
+        loader: extractStyles.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: __DEV__,
+                modules: false,
+                minimize: false
+              }
+            }
+          ]
+        })
+      },
+      {
         test: /\.scss$/i,
-        exclude: /node_modules\/bootstrap-saas/,
         loader: extractStyles.extract({
           fallback: 'style-loader',
           use: [
@@ -109,7 +128,7 @@ const config = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
       minify: {
-        collapseWhitespace: true,
+        collapseWhitespace: !__DEV__,
       }
     })
   ]
@@ -135,14 +154,22 @@ const config = {
       }
     }
   })
-})
+});
 
 if (__DEV__) {
   const DashboardPlugin = require('webpack-dashboard/plugin');
 
+  let configMap = require('./config.local.default.json');
+  try {
+    configMap = require('./config.local.json');
+  } catch (e) {}
+
   config.plugins.push(
     new webpack.NamedModulesPlugin(),
-    new DashboardPlugin({ port: 9001 })
+    new DashboardPlugin({ port: 9001 }),
+    new webpack.DefinePlugin({
+      CONFIG_MAP: JSON.stringify(configMap)
+    })
   )
 }
 
