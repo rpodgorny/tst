@@ -4,9 +4,12 @@
     "es6": true,
     "browser": true
   },
-  "ecmaFeatures": {
-    "jsx": true,
-    "modules": true
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "plugins": ["babel", "react"],
   "extends": ["eslint:recommended", "plugin:react/recommended"],

@@ -1,4 +1,4 @@
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import { fetchPlaces } from '../modules/dashboard';
 import Dashboard from '../components/dashboard';
 

@@ -4,6 +4,6 @@ const config = {
   placesUrl: configMap.placesUrl
 };
 
-export default function reducer(state = config, action) {
+export default function reducer(state = config) {
   return state;
 }

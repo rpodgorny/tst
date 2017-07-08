@@ -41,22 +41,25 @@ const config = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true,
-            plugins: [
-              require('babel-plugin-transform-class-properties'),
-              require('babel-plugin-transform-object-rest-spread')
-            ],
-            presets: [
-              'babel-preset-react',
-              ['babel-preset-env', {
-                modules: false
-              }]
-            ]
-          }
-        }
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              cacheDirectory: true,
+              plugins: [
+                require('babel-plugin-transform-class-properties'),
+                require('babel-plugin-transform-object-rest-spread')
+              ],
+              presets: [
+                'babel-preset-react',
+                ['babel-preset-env', {
+                  modules: false
+                }]
+              ]
+            }
+          },
+          "eslint-loader"
+        ]
       },
       {
         test: /\.css$/i,

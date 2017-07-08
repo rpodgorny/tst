@@ -1,6 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Dashboard extends React.Component {
+
+  static propTypes = {
+    places: PropTypes.arrayOf(PropTypes.object),
+    fetchPlaces: PropTypes.func
+  }
 
   render() {
 
@@ -12,7 +18,7 @@ class Dashboard extends React.Component {
         <button onClick={() => this.props.fetchPlaces()}>FETCH</button>
       </div>
     );
-  };
+  }
 }
 
 export default Dashboard;

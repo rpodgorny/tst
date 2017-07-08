@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { state, CONFIG } from "../app/store";
+import { state, CONFIG } from '../app/store';
 
 export const getLayout = () => {
   return axios.get(`${state(CONFIG).placesUrl}/layout`);
