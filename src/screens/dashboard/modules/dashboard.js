@@ -3,6 +3,7 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import _ from 'lodash';
 import update from 'immutability-helper';
 
+import { types as global } from '../../../app/modules/global';
 import { getLayout, updatePlacement } from '../../../services/api';
 
 const PLACES_FETCH_REQUESTED = 'places/dashboard/PLACES_FETCH_REQUESTED';
@@ -15,15 +16,20 @@ const UPDATE_SILO_FAILED = 'places/dashboard/UPDATE_SILO_FAILED';
 
 const fetchPlacesSagaHandler = function* () {
   try {
+    yield put({ type: global.LOADING });
     const response = yield call(getLayout);
     yield put({ type: PLACES_FETCH_SUCCEEDED, payload: response.data });
+    yield put({ type: global.SUCCESS });
   } catch (e) {
     yield put({ type: PLACES_FETCH_FAILED, payload: e.message });
+    yield put({ type: global.ERROR });
   }
 };
 
 const updateSiloSagaHandler = function* (action) {
   try {
+    yield put({ type: global.LOADING });
+
     const { update, silo } = action.payload;
     const data = {
       name: update.material ? update.material.name : null,
@@ -35,9 +41,11 @@ const updateSiloSagaHandler = function* (action) {
     };
     const response = yield call(updatePlacement, silo.name, data);
     yield put({ type: UPDATE_SILO_SUCCEEDED, payload: { siloId: silo.name, placement: response.data } });
+    yield put({ type: global.SUCCESS });
     action.onSuccess();
   } catch (e) {
     yield put({ type: UPDATE_SILO_FAILED, payload: e.message });
+    yield put({ type: global.ERROR });
   }
 };
 

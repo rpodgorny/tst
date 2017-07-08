@@ -3,15 +3,18 @@ import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 
 import configReducer from './modules/config';
+import globalReducer from './modules/global';
 
 
 export const CONFIG = 'config';
+export const GLOBAL = 'global';
 
 const dynamicReducers = [];
 
 const createRootReducer = () => {
   return combineReducers({
     [CONFIG]: configReducer,
+    [GLOBAL]: globalReducer,
     ...dynamicReducers
   });
 };
