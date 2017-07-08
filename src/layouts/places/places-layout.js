@@ -4,9 +4,12 @@ import { Route } from 'react-router-dom';
 
 import { Navbar } from 'react-bootstrap';
 
+import styles from './styles.scss';
+
+
 const PlacesLayout = ({ routes }) => (
   <div>
-    <Navbar>
+    <Navbar inverse className={styles.appHeader}>
       <Navbar.Header>
         <Navbar.Brand>
           <span>Asterix Places</span>

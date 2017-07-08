@@ -1,0 +1,28 @@
+div.category {
+  background-color: #f5f5f5;
+  border-color: #ddd;
+
+  > div:last-child {
+    padding-bottom: 0;
+  }
+}
+
+div.silo {
+  margin-bottom: 15px;
+
+  > div:last-child {
+    padding: 5px;
+  }
+
+  .minorSiloInfo {
+    float: right;
+
+    span:last-child {
+      padding-left: 5px;
+    }
+  }
+
+  .substitution {
+    float: right;
+  }
+}

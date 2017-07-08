@@ -1,5 +1,6 @@
 import 'regenerator-runtime/runtime';
 import { call, put, takeEvery } from 'redux-saga/effects';
+import _ from 'lodash';
 
 import { getLayout } from '../../../services/api';
 
@@ -29,10 +30,26 @@ export const fetchPlaces = () => {
   return { type: PLACES_FETCH_REQUESTED };
 };
 
-export default function(state = {}, action) {
+const mapSilo = (silo, placements) => {
+  const info = placements[silo.name];
+  return {
+    name: silo.name,
+    possibleMaterials: _.mapKeys(silo.possible_materials, 'name'),
+    possibleMinorSilos: silo.possible_minor_silos,
+    material: info && info.name ? { name: info.name, label: info.name_long } : null,
+    minorSilo: info ? info.silo_minor : null,
+    substitution: info ? info.substitution : 0
+  };
+};
+
+export default function(state = { categories: [], silos: {} }, action) {
   switch (action.type) {
-  case PLACES_FETCH_SUCCEEDED:
-    return action.payload.layout;
+  case PLACES_FETCH_SUCCEEDED: {
+    const { layout, placements } = action.payload;
+    const categories = layout.map(l => ({ name: l.name, silos: l.silos.map(s => s.name) }));
+    const silos = _.mapKeys(_.flatten(layout.map(l => l.silos)).map(s => mapSilo(s, placements)), 'name');
+    return { categories, silos };
+  }
   default:
     return state;
   }
