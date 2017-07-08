@@ -21,24 +21,48 @@ class SiloModalForm extends React.Component {
   constructor(props) {
     super(props);
 
-    const { silo } = this.props;
+    const { silo } = props;
     const { material, minorSilo, substitution } = silo;
 
-    const materials = _.values(silo.possibleMaterials).map(m => mapOption(m.name, m.label));
-    const minorSilos = silo.possibleMinorSilos.map(s => mapOption(s, s));
-
     this.state = {
-      silo,
-      materials,
-      minorSilos,
-      selectedMaterial: material ? mapOption(material.name, material.label) : null,
-      selectedMinorSilo: minorSilo ? mapOption(minorSilo, minorSilo) : null,
-      selectedSubstitution: substitution == 1
+      selectedMaterial: this._selectedMaterial(material),
+      selectedMinorSilo:this._selectedMinorSilo(minorSilo),
+      selectedSubstitution: substitution == 1,
+      ...this._createGeneralState(this.props)
     };
 
     this.cancel = this.cancel.bind(this);
     this.save = this.save.bind(this);
   }
+
+  componentWillReceiveProps(nextProps) {
+    const state = this._createGeneralState(nextProps);
+
+    const { silo } = nextProps;
+    const { material, minorSilo } = silo;
+    const { selectedMaterial, selectedMinorSilo } = this.state;
+
+    if (selectedMaterial && !silo.possibleMaterials[selectedMaterial.name]) {
+      state['selectedMaterial'] = this._selectedMaterial(material);
+    }
+    if (selectedMinorSilo && !silo.possibleMinorSilos.includes(selectedMinorSilo.name)) {
+      state['selectedMinorSilo'] = this._selectedMinorSilo(minorSilo);
+    }
+
+    this.setState(state);
+  }
+
+  _createGeneralState(props) {
+    const { silo } = props;
+    const materials = _.values(silo.possibleMaterials).map(m => mapOption(m.name, m.label));
+    const minorSilos = silo.possibleMinorSilos.map(s => mapOption(s, s));
+
+    return { silo, materials, minorSilos };
+  }
+
+  _selectedMaterial = (material) => material ? mapOption(material.name, material.label) : null;
+
+  _selectedMinorSilo = (minorSilo) => minorSilo ? mapOption(minorSilo, minorSilo) : null;
 
   cancel() {
     this.props.onCancel();
