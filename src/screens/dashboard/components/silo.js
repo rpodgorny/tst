@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import { Panel, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import FontAwesome from 'react-fontawesome';
 
+import SiloName from './silo_name';
+
 import styles from './styles.scss';
 
 
@@ -16,8 +18,6 @@ const minorSiloTooltip = (
 const substitutionTooltip = (
   <Tooltip id="minor-silo-tooltip">Možnost náhrady</Tooltip>
 );
-
-const siloName = (id) => `Zásobník ${id + 1}`;
 
 const renderMinorSiloInfo = (id) => (
   <span className={styles.minorSiloInfo}>
@@ -36,10 +36,10 @@ const renderSubstitutionInfo = () => (
   </span>
 );
 
-const Silo = ({ id, silo }) => (
-  <Panel className={styles.silo}>
+const Silo = ({ silo, onClick }) => (
+  <Panel className={styles.silo} onClick={() => onClick(silo)}>
     <div>
-      <span>{siloName(id)}</span>
+      <span><SiloName id={silo.localId} /></span>
       {silo.minorSilo && renderMinorSiloInfo(silo.minorSilo)}
     </div>
     <div>
@@ -50,8 +50,8 @@ const Silo = ({ id, silo }) => (
 );
 
 Silo.propTypes = {
-  id: PropTypes.number.isRequired,
-  silo: PropTypes.object.isRequired
+  silo: PropTypes.object.isRequired,
+  onClick: PropTypes.func
 };
 
 export default Silo;

@@ -8,3 +8,7 @@ export const getLayout = () => {
 export const getPlacements = () => {
   return axios.get(`${state(CONFIG).placesUrl}/placements`);
 };
+
+export const updatePlacement = (id, data) => {
+  return axios.put(`${state(CONFIG).placesUrl}/placements/${id}`, data);
+};
