@@ -122,7 +122,9 @@ const config = {
     new webpack.DefinePlugin({
       "process.env": {
         NODE_ENV: JSON.stringify(ENV)
-      }
+      },
+      __DEV__,
+      __PROD__
     }),
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest']
@@ -171,9 +173,7 @@ if (__DEV__) {
     new webpack.NamedModulesPlugin(),
     new DashboardPlugin({ port: 9001 }),
     new webpack.DefinePlugin({
-      CONFIG_MAP: JSON.stringify(configMap),
-      __DEV__,
-      __PROD__
+      CONFIG_MAP: JSON.stringify(configMap)
     })
   )
 }
