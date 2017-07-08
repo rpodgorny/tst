@@ -35,6 +35,7 @@ const updateSiloSagaHandler = function* (action) {
     };
     const response = yield call(updatePlacement, silo.name, data);
     yield put({ type: UPDATE_SILO_SUCCEEDED, payload: { siloId: silo.name, placement: response.data } });
+    action.onSuccess();
   } catch (e) {
     yield put({ type: UPDATE_SILO_FAILED, payload: e.message });
   }
@@ -57,8 +58,8 @@ export const fetchPlaces = () => {
   return { type: PLACES_FETCH_REQUESTED };
 };
 
-export const updateSilo = (update, silo) => {
-  return { type: UPDATE_SILO_REQUESTED, payload: { update, silo } };
+export const updateSilo = (update, silo, cb) => {
+  return { type: UPDATE_SILO_REQUESTED, payload: { update, silo }, onSuccess: cb };
 };
 
 const mapMaterial = (holder) => ({ name: holder.name, label: holder.name_long });

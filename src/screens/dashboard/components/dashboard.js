@@ -31,8 +31,10 @@ class Dashboard extends React.Component {
 
   cancelEdit = () => this.setState({ showEditModal: false, editedSilo: null });
 
+  finishEdit = () => this.setState({ showEditModal: false, editedSilo: null });
+
   updateSilo = (update) => {
-    this.props.updateSilo(update, this.state.editedSilo);
+    this.props.updateSilo(update, this.state.editedSilo, this.finishEdit);
   }
 
   _getSilo = (name) => this.props.places.silos[name];
