@@ -171,7 +171,9 @@ if (__DEV__) {
     new webpack.NamedModulesPlugin(),
     new DashboardPlugin({ port: 9001 }),
     new webpack.DefinePlugin({
-      CONFIG_MAP: JSON.stringify(configMap)
+      CONFIG_MAP: JSON.stringify(configMap),
+      __DEV__,
+      __PROD__
     })
   )
 }

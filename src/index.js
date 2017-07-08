@@ -25,4 +25,17 @@ const App = () => {
   );
 };
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const MOUNT_NODE = document.getElementById('root');
+
+/* eslint-disable no-undef */
+if (__DEV__) {
+  const RedBox = require('redbox-react').default;
+  try {
+    ReactDOM.render(<App />, MOUNT_NODE);
+  } catch (e) {
+    ReactDOM.render(<RedBox error={e} />, MOUNT_NODE);
+  }
+} else {
+  ReactDOM.render(<App />, MOUNT_NODE);
+}
+/* eslint-enable */

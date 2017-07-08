@@ -1,4 +1,5 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 
@@ -19,9 +20,9 @@ const createRootReducer = () => {
   });
 };
 
+const composeEnhancers = composeWithDevTools({});
 const sagaMiddleware = createSagaMiddleware();
-
-export const store = createStore(createRootReducer(), applyMiddleware(sagaMiddleware));
+export const store = createStore(createRootReducer(), composeEnhancers(applyMiddleware(sagaMiddleware)));
 
 export const injectReducer = ({ key, reducer }) => {
   if (dynamicReducers[key]) return; // already injected
