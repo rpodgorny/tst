@@ -16,7 +16,7 @@ const minorSiloTooltip = (
 );
 
 const substitutionTooltip = (
-  <Tooltip id="minor-silo-tooltip">Možnost náhrady</Tooltip>
+  <Tooltip id="substitution-tooltip">Možnost náhrady</Tooltip>
 );
 
 const renderMinorSiloInfo = (id) => (
