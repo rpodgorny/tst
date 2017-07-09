@@ -20,12 +20,29 @@ const start = (data) => {
   const path = require('path');
   const express = require('express');
   const cache = require('express-cache-headers');
+  const helmet = require('helmet');
+  const csp = require('express-csp');
 
   const config = 'CONFIG_MAP=' + JSON.stringify(configMap);
   const html = data.replace('</head>', '<script type="text/javascript" src="config.js"></script></head>');
 
   const app = express();
-
+  app.use(helmet());
+  csp.extend(app, {
+    policy: {
+      useScriptNonce: false,
+      useStyleNonce: false,
+      directives: {
+        'default-src': ['self'],
+        'style-src': ['self'],
+        'font-src': ['self'],
+        'script-src': ['self'],
+        'connect-src': ['self', configMap.placesUrl],
+        'img-src': ['self'],
+        'frame-ancestors' : ["'none'"]
+      }
+    }
+  });
   app.use(cache({ ttl: 86400, private: true }));
 
   // Static assets
