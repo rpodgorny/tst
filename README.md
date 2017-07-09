@@ -24,6 +24,10 @@ npm start
 
 App runs on _http://localhost:9000_.
 
+### ESLint
+
+Check rules by `npm run test:list`.
+
 ## Production Build
 
 Build project with production configuration (minified, uglified):
@@ -39,3 +43,10 @@ node server.js
 ```
 
 Server runs on _http://localhost:8080_.
+
+### Docker
+
+```
+docker build -t asterix-web-places .
+docker run -e "PLACES_URL=http://localhost:7779" -p 8080:8080 -d asterix-web-places
+```
