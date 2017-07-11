@@ -61,7 +61,7 @@ class Dashboard extends React.Component {
           <Panel key={i} header={categoryTitle(c.name)} className={styles.category}>
             <Row>
               {c.silos.map((name, i) => (
-                <Col key={i} md={2}>
+                <Col key={i} md={2} sm={4} xs={12}>
                   <Silo silo={_getSilo(this.props, name)} onClick={this.editSilo.bind(this)} />
                 </Col>
               ))}
