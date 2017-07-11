@@ -36,6 +36,10 @@ const config = {
 
   devtool: __DEV__ ? 'source-map' : false,
 
+  devServer: !__DEV__ ? {} : {
+    disableHostCheck: true
+  },
+
   module: {
     rules: [
       {
