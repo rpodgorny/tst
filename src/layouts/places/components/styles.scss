@@ -1,3 +1,11 @@
-.appHeader {
+.appPanel {
   border-radius: 0 !important;
+
+  .header {
+    float: left;
+  }
+
+  .statusItems {
+    float: right;
+  }
 }
