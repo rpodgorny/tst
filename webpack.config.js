@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const ENV = process.env.NODE_ENV || 'development';
 const __DEV__ = ENV === 'development';
@@ -139,6 +140,10 @@ const config = {
       minify: {
         collapseWhitespace: !__DEV__,
       }
+    }),
+    new FaviconsWebpackPlugin({
+      logo: './src/favicon.png',
+      prefix: 'icons/favicons-[hash]/'
     })
   ]
 };

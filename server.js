@@ -49,6 +49,7 @@ const start = (data) => {
   app.use('/fonts', express.static(path.join(__dirname, './dist/fonts')));
   app.use('/styles', express.static(path.join(__dirname, './dist/styles')));
   app.use('/scripts', express.static(path.join(__dirname, './dist/scripts')));
+  app.use('/icons', express.static(path.join(__dirname, './dist/icons')));
 
   // Dynamically created config
   app.get('/config.js', cache({ nocache: true }), function (req, res) {
