@@ -43,6 +43,19 @@ node server.js
 ```
 
 Server runs on _http://localhost:8080_.
+## Production Build with Static Config
+
+Build dist containing config map:
+
+```
+PLACES_URL=http://localhost:7779 npm run build:static-conf
+```
+
+Start server (the PLACES_URL needed only for CSP):
+
+```
+PLACES_URL=http://localhost:7779 node server_static.js
+```
 
 ### Docker
 

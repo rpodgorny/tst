@@ -6,6 +6,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "build": "npm run clean && NODE_ENV=production webpack -p",
+    "build:static-conf": "npm run clean && NODE_ENV=production STATIC_CONF=true webpack -p",
     "start": "webpack-dashboard -p 9001 -t 'Asterix Places' -- webpack-dev-server --color --inline --hot --port 9000 --host 0.0.0.0",
     "test:lint": "eslint ./src --ext .js --ext .jsx || true"
   },

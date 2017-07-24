@@ -8,6 +8,11 @@ const ENV = process.env.NODE_ENV || 'development';
 const __DEV__ = ENV === 'development';
 const __PROD__ = ENV === 'production';
 
+if (process.env.STATIC_CONF && !process.env.PLACES_URL) {
+  console.log('process.env.PLACES_URL must be defined!');
+  process.exit(1);
+}
+
 const extractStyles = new ExtractTextPlugin({
   filename: 'styles/[name].[contenthash].css',
   allChunks: true,
@@ -188,6 +193,16 @@ if (__DEV__) {
 }
 
 if (__PROD__) {
+  if (process.env.STATIC_CONF) {
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        CONFIG_MAP: JSON.stringify({
+          placesUrl: process.env.PLACES_URL
+        })
+      })
+    )
+  }
+
   config.plugins.push(
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: __DEV__,
