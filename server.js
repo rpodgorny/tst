@@ -23,6 +23,7 @@ const start = (data) => {
   const helmet = require('helmet');
   const csp = require('express-csp');
 
+  //ph: Tohle není úplně hezký způsob, jak dostávat konfiguraci do hlavního skriptu. Musí se to potom ohýbat na všech místech, kde se k CONFIG_MAP přistupuje, aby eslint neřval a navíc se tady musí lepit kus javascriptového kódu v rámci stringu. Udělej to spíše tak, že uděláš endpoint pro stažení konfigurace čistě jako JSON a ten potom aktivně z hlavního striptu stáhni. Je to trochu složitější řešení, ale mnohem elegantnější.
   const config = 'CONFIG_MAP=' + JSON.stringify(configMap);
   const html = data.replace('</head>', '<script type="text/javascript" src="config.js"></script></head>');
 
@@ -60,6 +61,6 @@ const start = (data) => {
   // Main HTML
   app.get('*', cache({ nocache: true }), function (req, res) { res.send(html) });
 
-  const port = process.env.PORT || 8080;
+  const port = process.env.PORT || 8080;//ph: dal bych sem spíše port 3000, je to jakýsi nepsaný standard v node.js světě
   app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
 }

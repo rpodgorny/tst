@@ -8,10 +8,10 @@ import { store } from './app/store';
 import PlacesLayout from './layouts/places';
 import Dashboard from './screens/dashboard';
 
-import './styles/bootstrap.css';
+import './styles/bootstrap.css';//ph: používal bych pouze scss
 import './styles/main.scss';
 
-
+//ph: Route je v tomhle případě trochu zbytečná. Pokud to nebudeš dále rozšiřovat.
 const App = () => {
 
   return (

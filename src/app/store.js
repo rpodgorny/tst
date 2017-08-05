@@ -6,7 +6,20 @@ import { all } from 'redux-saga/effects';
 import configReducer from './modules/config';
 import globalReducer from './modules/global';
 
+/*
+ph: moc nerozumím konstantám CONFIG a GLOBAL, obvykle se to dělá takto:
 
+ import config from './modules/config';
+ import global from './modules/global';
+
+ const createRootReducer = () => {
+   return combineReducers({
+     config,
+     global,
+     ...dynamicReducers
+   });
+ };
+ */
 export const CONFIG = 'config';
 export const GLOBAL = 'global';
 

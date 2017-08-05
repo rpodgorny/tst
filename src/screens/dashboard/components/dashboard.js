@@ -10,6 +10,7 @@ import styles from './styles.scss';
 
 const _getSilo = (props, name) => props.places.silos[name];
 
+//ph: používej === místo ==
 const categoryTitle = (name) => <h3 className="panel-title">{name == 'Prisada' ? 'Přísada' : name}</h3>;
 
 class Dashboard extends React.Component {
